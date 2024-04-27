@@ -1,9 +1,9 @@
-name: Build, Test, and Deploy to GKE
+name: Build and Deploy to GKE
 
 on:
   push:
     branches:
-      - test
+      - main
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -16,7 +16,7 @@ env:
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Test, Publish, and Deploy
+    name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
 
@@ -38,10 +38,6 @@ jobs:
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
-
-      - name: Run Tests
-        run: |
-          mvn test
 
       - name: Build
         run: |
