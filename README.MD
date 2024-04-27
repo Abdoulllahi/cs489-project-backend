@@ -80,4 +80,14 @@ It is not possible to end a subscription before the ending date, and it is also 
 7. **CRM Integration**:
    - Customer information is stored in the CRM system for advertising purposes.
 
+## UML Diagram
+
 ![alt text](screenshots/UML.jpg)
+
+## ER Diagram
+
+![alt text](screenshots/ER-diagram.png)
+
+## Architecture
+
+![alt text](screenshots/architecture.webp)
