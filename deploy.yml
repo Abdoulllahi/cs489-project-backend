@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cs489-project-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cs489-project-backend
+  template:
+    metadata:
+      labels:
+        app: cs489-project-backend
+    spec:
+      containers:
+        - name: cs489-project-backend
+          image: us-central1-docker.pkg.dev/your-project/repo/cs489-project-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/movie_mail?createDatabaseIfNotExist=true
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: user123456
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cs489-project-backend
+spec:
+  type: LoadBalancer
+  selector:
+    app: cs489-project-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
