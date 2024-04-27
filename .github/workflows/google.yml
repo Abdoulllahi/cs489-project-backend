@@ -3,7 +3,7 @@ name: Build, Test, and Deploy to GKE
 on:
   push:
     branches:
-      - main
+      - test
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
