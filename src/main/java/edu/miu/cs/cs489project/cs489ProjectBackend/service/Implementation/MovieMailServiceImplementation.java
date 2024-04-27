@@ -55,12 +55,11 @@ public class MovieMailServiceImplementation implements MovieMailService {
     @Override
     @Transactional
     public boolean addSubscription(Long customerId, String subscriptionName, String paymentMethod) {
-        // Step 1: Validate input parameters
+
         if (customerId == null || subscriptionName == null || paymentMethod == null) {
             return false;
         }
 
-        // Step 2: Check if the customer exists
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if (optionalCustomer.isEmpty()) {
             return false;
@@ -69,16 +68,19 @@ public class MovieMailServiceImplementation implements MovieMailService {
 
         Optional<Subscription> optionalSubscription = subscriptionRepository.findByName(subscriptionName);
         if (optionalSubscription.isEmpty()) {
-            return false; // Subscription does not exist
+            return false;
         }
         Subscription subscription = optionalSubscription.get();
 
-        boolean paymentProcessed = processPayment(customer, subscription, paymentMethod);
-        if (!paymentProcessed) {
-            return false; // Payment processing failed
+        if (!validateSubscriptionConstraints(customer, subscription)) {
+            return false; // Subscription cannot be added due to constraints
         }
 
-        // Step 5: Add the subscription to the customer's list of subscriptions
+        boolean paymentProcessed = processPayment(customer, subscription, paymentMethod);
+        if (!paymentProcessed) {
+            return false;
+        }
+
         customer.getSubscriptions().add(subscription);
         customerRepository.save(customer);
 
@@ -100,31 +102,41 @@ public class MovieMailServiceImplementation implements MovieMailService {
         }
         Customer customer = optionalCustomer.get();
 
-        // Step 3: Find the subscription by name
         Optional<Subscription> optionalSubscription = subscriptionRepository.findByName(subscriptionName);
         if (optionalSubscription.isEmpty()) {
-            return false; // Subscription does not exist
+            return false;
         }
 
         Subscription subscription = optionalSubscription.get();
         if (customer.getSubscriptions().contains(subscription)) {
             customer.getSubscriptions().remove(subscription);
             customerRepository.save(customer);
-            return true; // Subscription removed successfully
+            return true;
         } else {
-            return false; // Customer does not have this subscription
+            return false;
         }
     }
 
     private boolean processPayment(Customer customer, Subscription subscription, String paymentMethod) {
-        // Simulate processing time (e.g., 10 seconds)
+
         try {
-            Thread.sleep(10000); // 10 seconds
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        // In a real-world scenario, we would perform actual payment processing here
-        // For simplicity, we're assuming payment is successful without any validation
+
         return true;
+    }
+
+    private boolean validateSubscriptionConstraints(Customer customer, Subscription subscription) {
+        // Check constraints based on subscription type
+        return switch (subscription.getName()) {
+            case "Platina" -> customer.getDVDsAtHome().size() <= 4;
+            case "Gold" -> customer.getDVDsAtHome().size() <= 3;
+            case "Silver" -> customer.getDVDsAtHome().size() <= 2;
+            case "Bronze" -> customer.getDVDsAtHome().size() <= 1;
+            case "Basic" -> customer.getDVDsAtHome().isEmpty();
+            default -> false;
+        };
     }
 }
