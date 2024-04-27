@@ -91,3 +91,11 @@ It is not possible to end a subscription before the ending date, and it is also 
 ## Architecture
 
 ![alt text](screenshots/architecture.webp)
+
+## Container Repo
+
+![alt text](screenshots/Container_repo.png)
+
+## Kubernete Cluster
+
+![alt text](screenshots/Kubernete_cluster.png)
