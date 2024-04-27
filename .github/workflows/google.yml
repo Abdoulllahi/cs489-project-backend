@@ -1,4 +1,4 @@
-name: Build, Test, and Deploy to GKE
+name: Build and Deploy to GKE
 
 on:
   push:
@@ -16,7 +16,7 @@ env:
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Test, Publish, and Deploy
+    name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
 
@@ -51,5 +51,5 @@ jobs:
 
       - name: Deploy
         run: |
-          kubectl apply -f deploy.yml --validate=false
+          kubectl apply -f deploy.yml
           kubectl get pods
