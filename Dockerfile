@@ -5,7 +5,7 @@ FROM adoptopenjdk:11-jre-hotspot
 WORKDIR /app
 
 # Copy the packaged JAR file into the container
-COPY target/cs489-project-backend.jar /app
+COPY target/*.jar /app
 
 # Expose port 8080
 EXPOSE 8080
