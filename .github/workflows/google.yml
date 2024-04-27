@@ -6,7 +6,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1
+  GAR_LOCATION: us
   GKE_CLUSTER: cs489-cluster
   GKE_ZONE: us-central1
   DEPLOYMENT_NAME: gke-test
