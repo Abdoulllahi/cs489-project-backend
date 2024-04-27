@@ -1,4 +1,4 @@
-package edu.miu.cs.cs489project.cs489ProjectBackend.entities;
+package edu.miu.cs.cs489project.cs489ProjectBackend.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;

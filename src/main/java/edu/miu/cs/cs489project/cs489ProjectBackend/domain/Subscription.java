@@ -1,4 +1,4 @@
-package edu.miu.cs.cs489project.cs489ProjectBackend.entities;
+package edu.miu.cs.cs489project.cs489ProjectBackend.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,18 +12,13 @@ public class Subscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private Integer numberOfDVDPerMonth;
     private Integer numberOfDVDAtHome;
     private Double pricePerMonth;
 
-    @ManyToMany
-    @JoinTable(
-                name = "customer_subscription",
-                joinColumns = {@JoinColumn(name = "subscription_id")},
-                inverseJoinColumns = {@JoinColumn(name = "customer_id")}
-    )
+    @ManyToMany(mappedBy = "subscriptions")
     List<Customer> subscribers;
 
 

@@ -51,9 +51,33 @@ At MovieMail we have a CRM system where we store all relevant information from c
 
 It is not possible to end a subscription before the ending date, and it is also not possible to get money back from your ordered subscription.
 
-Exercises
+## Project Specifications
 
-1. Draw the context diagram of the MovieMail system
-2. Draw the ER diagram of the MovieMail system
+1. **User Subscription**:
+   - Users can subscribe to multiple subscription plans simultaneously.
+
+2. **Payment Methods**:
+   - Users can choose between credit card and bank transfer for payment.
+   - Integration with Epay.com for credit card payments.
+
+3. **Watchlist**:
+   - Users can maintain a watchlist with a maximum of 50 DVDs.
+   - Watchlist maintains a specific order for DVD prioritization.
+
+4. **Request DVDs**:
+   - Users can request to add DVDs to the catalog.
+
+5. **DVD Tracking**:
+   - Each DVD has a unique scan code for tracking.
+   - Automatic scanning of DVDs when sent out or received back.
+
+6. **Reporting**:
+   - Top x most popular DVDs.
+   - Top x most requested DVDs.
+   - Overview of all subscriptions and earnings.
+   - Top x least popular DVDs.
+
+7. **CRM Integration**:
+   - Customer information is stored in the CRM system for advertising purposes.
 
 ![alt text](screenshots/UML.jpg)
