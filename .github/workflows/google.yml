@@ -51,5 +51,5 @@ jobs:
 
       - name: Deploy
         run: |
-          kubectl apply -f deploy.yml
+          kubectl apply -f deploy.yml --validate=false
           kubectl get pods
