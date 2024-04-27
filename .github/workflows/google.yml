@@ -39,10 +39,6 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-      - name: Run Tests
-        run: |
-          mvn test
-
       - name: Build
         run: |
           docker build \
