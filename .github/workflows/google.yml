@@ -12,6 +12,7 @@ env:
   DEPLOYMENT_NAME: gke-test
   REPOSITORY: gcr.io/cs489-project
   IMAGE: backend
+  DIGEST: sha256:5d25ed19a28a270d9d023191dd97e1a7f7595bf534ed15d7ce418518388422f3
 
 jobs:
   setup-build-publish-deploy:
@@ -47,8 +48,8 @@ jobs:
 
       - name: Publish
         run: |
-          docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
-          docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+          docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$DIGEST"
+          docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$DIGEST"
 
       - name: Set up Kustomize
         run: |
