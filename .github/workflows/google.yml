@@ -10,7 +10,7 @@ env:
   GKE_CLUSTER: cs489-cluster
   GKE_ZONE: us-central1
   DEPLOYMENT_NAME: gke-test
-  REPOSITORY: repo
+  REPOSITORY: gcr.io
   IMAGE: static-site
 
 jobs:
