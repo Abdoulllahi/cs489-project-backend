@@ -12,6 +12,7 @@ env:
   DEPLOYMENT_NAME: gke-test
   REPOSITORY: gcr.io/cs489-project
   IMAGE: backend
+  IMAGE_DIGEST: sha256:5d25ed19a28a270d9d023191dd97e1a7f7595bf534ed15d7ce418518388422f3
 
 jobs:
   setup-build-publish-deploy:
@@ -42,15 +43,9 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-      - name: Build
-        run: docker build .
-
-      - name: Authenticate Docker with GCR
-        run: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin $GAR_LOCATION-docker.pkg.dev
-
-      - name: Publish
+      - name: Tag and push image
         run: |
-          docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+          docker tag $IMAGE:$IMAGE_DIGEST "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
           docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
 
       - name: Set up Kustomize
