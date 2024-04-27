@@ -10,8 +10,8 @@ env:
   GKE_CLUSTER: cs489-cluster
   GKE_ZONE: us-central1
   DEPLOYMENT_NAME: gke-test
-  REPOSITORY: gcr.io
-  IMAGE: my-image
+  REPOSITORY: gcr.io/cs489-project
+  IMAGE: backend
 
 jobs:
   setup-build-publish-deploy:
@@ -47,7 +47,8 @@ jobs:
 
       - name: Publish
         run: |
-          docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+          docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+          docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
 
       - name: Set up Kustomize
         run: |
