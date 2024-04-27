@@ -81,3 +81,5 @@ It is not possible to end a subscription before the ending date, and it is also 
    - Customer information is stored in the CRM system for advertising purposes.
 
 ![alt text](screenshots/UML.jpg)
+
+![alt text](screenshots/ER-diagram.png)
